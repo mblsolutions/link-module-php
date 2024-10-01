@@ -1,5 +1,5 @@
 {
-    "name": "jon/sld-module-php",
+    "name": "mblsolutions/sld-module-php",
     "description": "Official Syncronous Link Delivery Module interface for PHP applications.",
     "type": "package",
     "license": "MIT",
