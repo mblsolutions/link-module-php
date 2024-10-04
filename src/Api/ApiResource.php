@@ -1,10 +1,10 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Api;
+namespace MBLSolutions\LinkModule\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use MBLSolutions\SLDModule\Auth\SLDModule;
+use MBLSolutions\LinkModule\Auth\LinkModule;
 
 abstract class ApiResource
 {
@@ -20,7 +20,7 @@ abstract class ApiResource
     {
         if ($client === null) {
             $client = new Client([
-                'base_uri' => SLDModule::getBaseUri()
+                'base_uri' => LinkModule::getBaseUri()
             ]);
         }
 

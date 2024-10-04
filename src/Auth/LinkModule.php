@@ -1,13 +1,13 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Auth;
+namespace MBLSolutions\LinkModule\Auth;
 
-use MBLSolutions\SLDModule\Exceptions\MissingTokenException;
+use MBLSolutions\LinkModule\Exceptions\MissingTokenException;
 
-class SLDModule
+class LinkModule
 {
     /** @var string $baseUri */
-    private static $baseUri = 'https://sld-module.com';
+    private static $baseUri = 'https://link-module.com';
 
     /** @var string $token */
     private static $token;
@@ -15,7 +15,7 @@ class SLDModule
     /** @var bool $verify */
     private static $verifySSL = true;
 
-    const AGENT = 'SLD-Module-PHP';
+    const AGENT = 'Link-Module-PHP';
 
     const VERSION = '1.0.0';
 

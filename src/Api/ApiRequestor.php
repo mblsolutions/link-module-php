@@ -1,11 +1,11 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Api;
+namespace MBLSolutions\LinkModule\Api;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use MBLSolutions\SLDModule\Exceptions\MissingTokenException;
-use MBLSolutions\SLDModule\Auth\SLDModule;
+use MBLSolutions\LinkModule\Exceptions\MissingTokenException;
+use MBLSolutions\LinkModule\Auth\LinkModule;
 
 class ApiRequestor
 {
@@ -56,7 +56,7 @@ class ApiRequestor
         return $this->makeHttpRequest('get', $uri, [
             'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
             'query' => $params,
-            'verify' => SLDModule::getVerifySSL()
+            'verify' => LinkModule::getVerifySSL()
         ]);
     }
 
@@ -74,7 +74,7 @@ class ApiRequestor
         return $this->makeHttpRequest('post', $uri, [
             'headers' => $this->defaultHeaders($headers),
             'json' => $params,
-            'verify' => SLDModule::getVerifySSL(),
+            'verify' => LinkModule::getVerifySSL(),
         ]);
     }
 
@@ -92,7 +92,7 @@ class ApiRequestor
         return $this->makeHttpRequest('patch', $uri, [
             'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
             'json' => $params,
-            'verify' => SLDModule::getVerifySSL()
+            'verify' => LinkModule::getVerifySSL()
         ]);
     }
 
@@ -110,7 +110,7 @@ class ApiRequestor
         return $this->makeHttpRequest('delete', $uri, [
             'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
             'query' => $params,
-            'verify' => SLDModule::getVerifySSL()
+            'verify' => LinkModule::getVerifySSL()
         ]);
     }
 
@@ -118,14 +118,14 @@ class ApiRequestor
      * @param array $headers
      *
      * @return array
-     * @throws \MBLSolutions\SLDModule\Exceptions\MissingTokenException
+     * @throws \MBLSolutions\LinkModule\Exceptions\MissingTokenException
      */
     public function defaultHeaders(array $headers = []): array
     {
         return array_merge($headers, [
-            'User-Agent' => SLDModule::AGENT . '/' . SLDModule::VERSION,
+            'User-Agent' => LinkModule::AGENT . '/' . LinkModule::VERSION,
             'Accept'     => 'application/json',
-            'Authorization' => 'Bearer ' . SLDModule::getToken(),
+            'Authorization' => 'Bearer ' . LinkModule::getToken(),
         ]);
     }
 
@@ -138,7 +138,7 @@ class ApiRequestor
     public function authenticatedHeaders(): array
     {
         return array_merge([
-            'Authorization' => 'Bearer ' . SLDModule::getToken(),
+            'Authorization' => 'Bearer ' . LinkModule::getToken(),
         ], $this->defaultHeaders());
     }
 

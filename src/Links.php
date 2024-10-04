@@ -1,8 +1,8 @@
 <?php
 
-namespace MBLSolutions\SLDModule;
+namespace MBLSolutions\LinkModule;
 
-use MBLSolutions\SLDModule\Api\ApiResource;
+use MBLSolutions\LinkModule\Api\ApiResource;
 
 class Links extends ApiResource
 {

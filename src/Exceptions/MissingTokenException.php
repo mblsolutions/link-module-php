@@ -1,5 +1,5 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Exceptions;
+namespace MBLSolutions\LinkModule\Exceptions;
 
 class MissingTokenException extends \Exception {}

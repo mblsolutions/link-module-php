@@ -1,6 +1,6 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Exceptions;
+namespace MBLSolutions\LinkModule\Exceptions;
 
 use Exception;
 use Throwable;

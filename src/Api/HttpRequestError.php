@@ -1,12 +1,12 @@
 <?php
 
-namespace MBLSolutions\SLDModule\Api;
+namespace MBLSolutions\LinkModule\Api;
 
 use GuzzleHttp\Exception\ClientException;
-use MBLSolutions\SLDModule\Exceptions\AuthenticationException;
-use MBLSolutions\SLDModule\Exceptions\NotFoundException;
-use MBLSolutions\SLDModule\Exceptions\PermissionDeniedException;
-use MBLSolutions\SLDModule\Exceptions\ValidationException;
+use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
+use MBLSolutions\LinkModule\Exceptions\NotFoundException;
+use MBLSolutions\LinkModule\Exceptions\PermissionDeniedException;
+use MBLSolutions\LinkModule\Exceptions\ValidationException;
 
 class HttpRequestError
 {

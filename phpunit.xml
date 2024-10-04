@@ -10,7 +10,7 @@
          stopOnFailure="false"
 >
     <testsuites>
-        <testsuite name="SLD Module PHP Test Suite">
+        <testsuite name="Link Module PHP Test Suite">
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
