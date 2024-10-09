@@ -55,7 +55,6 @@ class ApiRequestor
         return $this->makeHttpRequest('get', $uri, [
             'headers' => $this->defaultHeaders($headers),
             'query' => $params,
-            'verify' => LinkModule::getVerifySSL()
         ]);
     }
 
@@ -73,7 +72,6 @@ class ApiRequestor
         return $this->makeHttpRequest('post', $uri, [
             'headers' => $this->defaultHeaders($headers),
             'json' => $params,
-            'verify' => LinkModule::getVerifySSL(),
         ]);
     }
 
@@ -91,7 +89,6 @@ class ApiRequestor
         return $this->makeHttpRequest('patch', $uri, [
             'headers' => $this->defaultHeaders($headers),
             'json' => $params,
-            'verify' => LinkModule::getVerifySSL()
         ]);
     }
 
@@ -109,7 +106,6 @@ class ApiRequestor
         return $this->makeHttpRequest('delete', $uri, [
             'headers' => $this->defaultHeaders($headers),
             'query' => $params,
-            'verify' => LinkModule::getVerifySSL(),
         ]);
     }
 

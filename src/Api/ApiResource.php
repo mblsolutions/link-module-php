@@ -20,7 +20,8 @@ abstract class ApiResource
     {
         if ($client === null) {
             $client = new Client([
-                'base_uri' => LinkModule::getBaseUri()
+                'base_uri' => LinkModule::getBaseUri(),
+                'verify' => LinkModule::getVerifySSL(),
             ]);
         }
 
