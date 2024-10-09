@@ -4,7 +4,6 @@ namespace MBLSolutions\LinkModule\Api;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
-use MBLSolutions\LinkModule\Exceptions\MissingTokenException;
 use MBLSolutions\LinkModule\Auth\LinkModule;
 
 class ApiRequestor
@@ -54,7 +53,7 @@ class ApiRequestor
     public function getRequest(string $uri, array $params = [], array $headers = null): array
     {
         return $this->makeHttpRequest('get', $uri, [
-            'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
+            'headers' => $this->defaultHeaders($headers),
             'query' => $params,
             'verify' => LinkModule::getVerifySSL()
         ]);
@@ -90,7 +89,7 @@ class ApiRequestor
     public function patchRequest(string $uri, array $params = [], array $headers = null): array
     {
         return $this->makeHttpRequest('patch', $uri, [
-            'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
+            'headers' => $this->defaultHeaders($headers),
             'json' => $params,
             'verify' => LinkModule::getVerifySSL()
         ]);
@@ -108,9 +107,9 @@ class ApiRequestor
     public function deleteRequest(string $uri, array $params = [], array $headers = null): array
     {
         return $this->makeHttpRequest('delete', $uri, [
-            'headers' => $headers !== null ? $this->defaultHeaders($headers) : $this->authenticatedHeaders(),
+            'headers' => $this->defaultHeaders($headers),
             'query' => $params,
-            'verify' => LinkModule::getVerifySSL()
+            'verify' => LinkModule::getVerifySSL(),
         ]);
     }
 
@@ -118,28 +117,13 @@ class ApiRequestor
      * @param array $headers
      *
      * @return array
-     * @throws \MBLSolutions\LinkModule\Exceptions\MissingTokenException
      */
     public function defaultHeaders(array $headers = []): array
     {
         return array_merge($headers, [
             'User-Agent' => LinkModule::AGENT . '/' . LinkModule::VERSION,
             'Accept'     => 'application/json',
-            'Authorization' => 'Bearer ' . LinkModule::getToken(),
         ]);
-    }
-
-    /**
-     * Get the Authenticated Request Headers
-     *
-     * @return array
-     * @throws MissingTokenException
-     */
-    public function authenticatedHeaders(): array
-    {
-        return array_merge([
-            'Authorization' => 'Bearer ' . LinkModule::getToken(),
-        ], $this->defaultHeaders());
     }
 
     /**

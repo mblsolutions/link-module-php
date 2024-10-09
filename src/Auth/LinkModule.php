@@ -2,15 +2,10 @@
 
 namespace MBLSolutions\LinkModule\Auth;
 
-use MBLSolutions\LinkModule\Exceptions\MissingTokenException;
-
 class LinkModule
 {
     /** @var string $baseUri */
     private static $baseUri = 'https://link-module.com';
-
-    /** @var string $token */
-    private static $token;
 
     /** @var bool $verify */
     private static $verifySSL = true;
@@ -40,34 +35,6 @@ class LinkModule
     public static function getBaseUri(): string
     {
         return self::$baseUri;
-    }
-
-    /**
-     * Set the Bearer Token
-     *
-     * @param string $token
-     * @return void
-     */
-    public static function setToken($token)
-    {
-        self::$token = $token;
-    }
-
-    /**
-     * Get the Bearer Token
-     *
-     * @return string
-     * @throws MissingTokenException
-     */
-    public static function getToken(): string
-    {
-        $token = self::$token;
-
-        if ($token === null) {
-            throw new MissingTokenException('Missing Bearer Token in SLD Configuration');
-        }
-
-        return $token;
     }
 
     /**
