@@ -3,6 +3,7 @@
 namespace MBLSolutions\LinkModule;
 
 use MBLSolutions\LinkModule\Api\ApiResource;
+use MBLSolutions\LinkModule\Auth\LinkModule;
 
 class Links extends ApiResource
 {
@@ -20,7 +21,7 @@ class Links extends ApiResource
     {
         return $this->getApiRequestor()->postRequest("/api/{$this->endpoint}/create/", $params, array_merge([
             'X-Max-Wait' => $this->maxWait
-        ], $headers));
+        ], $this->authorizationHeader(), $headers));
     }
 
     /**
@@ -35,7 +36,7 @@ class Links extends ApiResource
     {
         return $this->getApiRequestor()->getRequest("/api/{$this->endpoint}/show/{$reference}/{$item}/", [], array_merge([
             'X-Max-Wait' => $this->maxWait
-        ], $headers));
+        ], $this->authorizationHeader(), $headers));
     }
 
     /**
@@ -50,7 +51,7 @@ class Links extends ApiResource
     {
         return $this->getApiRequestor()->patchRequest("/api/{$this->endpoint}/redeem/{$reference}/{$item}/", [], array_merge([
             'X-Max-Wait' => $this->maxWait
-        ], $headers));
+        ], $this->authorizationHeader(), $headers));
     }
 
     /**
@@ -65,7 +66,7 @@ class Links extends ApiResource
     {
         return $this->getApiRequestor()->patchRequest("/api/{$this->endpoint}/update/{$reference}/", $params, array_merge([
             'X-Max-Wait' => $this->maxWait
-        ], $headers));
+        ], $this->authorizationHeader(), $headers));
     }
 
     /**
@@ -78,6 +79,11 @@ class Links extends ApiResource
     {
         return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [], array_merge([
             'X-Max-Wait' => $this->maxWait
-        ], $headers));
+        ], $this->authorizationHeader(), $headers));
+    }
+
+    private function authorizationHeader(): array
+    {
+        return ['Authorization' => LinkModule::getToken()];
     }
 }

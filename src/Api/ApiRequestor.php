@@ -8,17 +8,16 @@ use MBLSolutions\LinkModule\Auth\LinkModule;
 
 class ApiRequestor
 {
-    /** @var ClientInterface $guzzle */
-    private static $guzzle;
+    private static ClientInterface $transport;
 
     /**
      * Create a new API Requestor Instance
      *
-     * @param ClientInterface|null $guzzle
+     * @param ClientInterface|null $transport
      */
-    public function __construct(ClientInterface $guzzle)
+    public function __construct(ClientInterface $transport)
     {
-        self::$guzzle = $guzzle;
+        self::$transport = $transport;
     }
 
     /**
@@ -28,7 +27,7 @@ class ApiRequestor
      */
     public function getHttpClient(): ClientInterface
     {
-        return self::$guzzle;
+        return self::$transport;
     }
 
     /**
@@ -38,7 +37,7 @@ class ApiRequestor
      */
     public static function setHttpClient(ClientInterface $guzzle)
     {
-        self::$guzzle = $guzzle;
+        self::$transport = $guzzle;
     }
 
     /**
@@ -117,7 +116,7 @@ class ApiRequestor
     public function defaultHeaders(array $headers = []): array
     {
         return array_merge($headers, [
-            'User-Agent' => LinkModule::AGENT . '/' . LinkModule::VERSION,
+            'User-Agent' => LinkModule::getUserAgent(),
             'Accept'     => 'application/json',
         ]);
     }
