@@ -25,7 +25,9 @@ abstract class ApiResource
             ]);
         }
 
-        $this->apiRequestor = new ApiRequestor($client);
+        $this->apiRequestor = new ApiRequestor(
+            transport: $client,
+        );
     }
 
     /**

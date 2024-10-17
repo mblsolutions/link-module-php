@@ -2,16 +2,21 @@
     "name": "mblsolutions/link-module-php",
     "description": "Official Link Module interface for PHP applications.",
     "type": "package",
-    "license": "MIT",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "MBLSolutions\\LinkModule\\": "src/"
+            "MBLSolutions\\LinkModule\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "authors": [
         {
             "name": "Jon K",
             "email": "jonknibbs@paypoint.com"
+        },
+        {
+            "name": "Hayley Berry",
+            "email": "hayley.berry@appreciategroup.co.uk"
         }
     ],
     "minimum-stability": "dev",

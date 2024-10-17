@@ -2,13 +2,15 @@
 
 namespace MBLSolutions\LinkModule\Auth;
 
+use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
+
 class LinkModule
 {
-    /** @var string $baseUri */
-    private static $baseUri = 'https://link-module.com';
+    private static string $baseUri = 'https://link-module.com';
 
-    /** @var bool $verify */
-    private static $verifySSL = true;
+    private static ?string $token = null;
+
+    private static bool $verifySSL = true;
 
     const AGENT = 'Link-Module-PHP';
 
@@ -56,5 +58,24 @@ class LinkModule
     public static function getVerifySSL(): bool
     {
         return self::$verifySSL;
+    }
+
+    public static function getUserAgent(): string
+    {
+        return self::AGENT . '/' . self::VERSION;
+    }
+
+    public static function getToken(): string
+    {
+        if (empty(self::$token)) {
+            throw new AuthenticationException();
+        }
+
+        return self::$token;
+    }
+
+    public static function setToken(string $token): void
+    {
+        self::$token = $token;
     }
 }
