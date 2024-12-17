@@ -10,6 +10,8 @@ class LinkModule
 
     private static ?string $token = null;
 
+    private static bool $tokenEnabled = true;
+
     private static bool $verifySSL = true;
 
     const AGENT = 'Link-Module-PHP';
@@ -67,7 +69,7 @@ class LinkModule
 
     public static function getToken(): string
     {
-        if (empty(self::$token)) {
+        if (empty(self::$token) && self::$tokenEnabled) {
             throw new AuthenticationException();
         }
 
@@ -77,5 +79,15 @@ class LinkModule
     public static function setToken(string $token): void
     {
         self::$token = $token;
+    }
+
+    public static function enableToken(): void
+    {
+        self::$tokenEnabled = true;
+    }
+
+    public static function disableToken(): void
+    {
+        self::$tokenEnabled = false;
     }
 }
