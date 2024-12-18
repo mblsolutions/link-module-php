@@ -67,7 +67,7 @@ class LinkModule
         return self::AGENT . '/' . self::VERSION;
     }
 
-    public static function getToken(): string
+    public static function getToken(): string | null
     {
         if (empty(self::$token) && self::$tokenEnabled) {
             throw new AuthenticationException();
