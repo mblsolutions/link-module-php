@@ -84,6 +84,7 @@ class Links extends ApiResource
 
     private function authorizationHeader(): array
     {
-        return ['Authorization' => LinkModule::getToken()];
+        $token = LinkModule::getToken();
+        return ($token) ? ['Authorization' => $token] : [];
     }
 }
