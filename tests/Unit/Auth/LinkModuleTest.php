@@ -27,14 +27,14 @@ class LinkModuleTest extends TestCase
         );
 
         $this->mockExpectedHttpResponse([
-            'access_token' => 'test access token',
+            'access_token' => 'Bearer test access token',
             'expires_in' => 3600,
             'token_type' => 'Bearer'
         ]);
 
         $token = $oauthClient->getToken();
 
-        LinkModule::setToken($token->tokenType . ' ' . $token->accessToken);
+        LinkModule::setToken($token);
 
         $this->assertEquals('Bearer test access token', LinkModule::getToken());
     }

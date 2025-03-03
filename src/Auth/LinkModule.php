@@ -2,17 +2,25 @@
 
 namespace MBLSolutions\LinkModule\Auth;
 
+use MBLSolutions\LinkModule\Api\AccessToken;
+use MBLSolutions\LinkModule\Api\OAuthResource;
 use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
 
 class LinkModule
 {
     private static string $baseUri = 'https://link-module.com';
 
-    private static ?string $token = null;
+    private static ?AccessToken $token = null;
 
     private static bool $tokenEnabled = true;
 
     private static bool $verifySSL = true;
+
+    private static string $authTokenUri;
+
+    private static string $authClientId;
+
+    private static string $authClientSecret;
 
     const AGENT = 'Link-Module-PHP';
 
@@ -69,14 +77,28 @@ class LinkModule
 
     public static function getToken(): string | null
     {
-        if (empty(self::$token) && self::$tokenEnabled) {
-            throw new AuthenticationException();
+        if (! self::$tokenEnabled) {
+            return null;
         }
 
-        return self::$token;
+        if (! self::$token || self::$token->isExpired()) {
+            if (empty(self::$authTokenUri) || empty(self::$authClientId) || empty(self::$authClientSecret)) {
+                throw new AuthenticationException('Authentication credentials not set');
+            }
+
+            $resource = new OAuthResource(
+                tokenUri: self::$authTokenUri,
+                clientId: self::$authClientId,
+                clientSecret: self::$authClientSecret
+            );
+
+            self::$token = $resource->getToken();
+        }
+
+        return self::$token->accessToken;
     }
 
-    public static function setToken(string $token): void
+    public static function setToken(AccessToken $token): void
     {
         self::$token = $token;
     }
@@ -89,5 +111,20 @@ class LinkModule
     public static function disableToken(): void
     {
         self::$tokenEnabled = false;
+    }
+
+    public static function setAuthTokenUri(string $authTokenUri): void
+    {
+        self::$authTokenUri = $authTokenUri;
+    }
+
+    public static function setAuthClientId(string $authClientId): void
+    {
+        self::$authClientId = $authClientId;
+    }
+
+    public static function setAuthClientSecret(string $authClientSecret): void
+    {
+        self::$authClientSecret = $authClientSecret;
     }
 }
