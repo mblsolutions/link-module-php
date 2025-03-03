@@ -8,7 +8,7 @@ use MBLSolutions\LinkModule\Auth\LinkModule;
 
 class ApiRequestor
 {
-    public static ClientInterface $transport;
+    public static ?ClientInterface $transport = null;
 
     /**
      * Create a new API Requestor Instance
@@ -25,7 +25,7 @@ class ApiRequestor
      *
      * @return ClientInterface
      */
-    public function getHttpClient(): ClientInterface
+    public static function getHttpClient(): ?ClientInterface
     {
         return self::$transport;
     }

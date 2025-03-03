@@ -3,7 +3,7 @@
 namespace MBLSolutions\LinkModule\Auth;
 
 use MBLSolutions\LinkModule\Api\AccessToken;
-use MBLSolutions\LinkModule\Api\OAuthResource;
+use MBLSolutions\LinkModule\Auth\Contracts\TokenResolverInterface;
 use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
 
 class LinkModule
@@ -16,11 +16,7 @@ class LinkModule
 
     private static bool $verifySSL = true;
 
-    private static string $authTokenUri;
-
-    private static string $authClientId;
-
-    private static string $authClientSecret;
+    private static ?TokenResolverInterface $tokenResolver = null;
 
     const AGENT = 'Link-Module-PHP';
 
@@ -82,20 +78,14 @@ class LinkModule
         }
 
         if (! self::$token || self::$token->isExpired()) {
-            if (empty(self::$authTokenUri) || empty(self::$authClientId) || empty(self::$authClientSecret)) {
+            if (! self::$tokenResolver) {
                 throw new AuthenticationException('Authentication credentials not set');
             }
 
-            $resource = new OAuthResource(
-                tokenUri: self::$authTokenUri,
-                clientId: self::$authClientId,
-                clientSecret: self::$authClientSecret
-            );
-
-            self::$token = $resource->getToken();
+            self::$token = self::$tokenResolver->resolveToken();
         }
 
-        return self::$token->accessToken;
+        return self::$token->tokenType . ' ' . self::$token->accessToken;
     }
 
     public static function setToken(AccessToken $token): void
@@ -113,18 +103,13 @@ class LinkModule
         self::$tokenEnabled = false;
     }
 
-    public static function setAuthTokenUri(string $authTokenUri): void
+    public static function getTokenResolver(): ?TokenResolverInterface
     {
-        self::$authTokenUri = $authTokenUri;
+        return self::$tokenResolver;
     }
 
-    public static function setAuthClientId(string $authClientId): void
+    public static function setTokenResolver(?TokenResolverInterface $tokenResolver): void
     {
-        self::$authClientId = $authClientId;
-    }
-
-    public static function setAuthClientSecret(string $authClientSecret): void
-    {
-        self::$authClientSecret = $authClientSecret;
+        self::$tokenResolver = $tokenResolver;
     }
 }
