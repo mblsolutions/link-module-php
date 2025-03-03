@@ -14,11 +14,9 @@ class OAuthResource extends ApiResource
         private string $clientSecret
     )
     {
-        parent::__construct();
+        $client = ApiRequestor::getHttpClient() ?: new Client();
 
-        $client = new Client();
-
-        $this->setApiRequestor(new ApiRequestor($client));
+        parent::__construct($client);
     }
 
     public function getToken(): AccessToken

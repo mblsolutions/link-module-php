@@ -1,3 +1,8 @@
+# v0.1.2
+
++ Move OAuth logic into TokenResolver task
++ Fix mocked HTTP responses in tests
+
 # v0.1.1
 
 + Refresh OAuth token if it is expired
