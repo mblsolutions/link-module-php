@@ -40,6 +40,21 @@ class Links extends ApiResource
     }
 
     /**
+     * Show a group link by reference
+     *
+     * @param $reference
+     * @param  $item
+     * @param array|null $headers
+     * @return array
+     */
+    public function showLinkGroup($reference, $params, array $headers = []): array
+    {
+        return $this->getApiRequestor()->getRequest("/api/{$this->endpoint}/show-link-group/{$reference}/", $params, array_merge([
+            'X-Max-Wait' => $this->maxWait
+        ], $this->authorizationHeader(), $headers));
+    }
+
+    /**
      * Redeem a single link
      *
      * @param $reference
@@ -71,15 +86,13 @@ class Links extends ApiResource
 
     /**
      * Cancel a link
-     *
+     * 
      * @param string $id
      * @param array $headers
      */
-    public function cancel(string $id, array $items, array $headers = []): array
+    public function cancel(string $id, array $headers = []): array
     {
-        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [
-            'items' => $items
-        ], array_merge([
+        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [], array_merge([
             'X-Max-Wait' => $this->maxWait
         ], $this->authorizationHeader(), $headers));
     }

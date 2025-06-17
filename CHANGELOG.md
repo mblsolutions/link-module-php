@@ -1,3 +1,7 @@
+# v0.2.0
+
++ Add show link group
+
 # v0.1.2
 
 + Move OAuth logic into TokenResolver task
