@@ -90,9 +90,11 @@ class Links extends ApiResource
      * @param string $id
      * @param array $headers
      */
-    public function cancel(string $id, array $headers = []): array
+    public function cancel(string $id, array $items, array $headers = []): array
     {
-        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [], array_merge([
+        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [
+            'items' => $items
+        ], array_merge([
             'X-Max-Wait' => $this->maxWait
         ], $this->authorizationHeader(), $headers));
     }
