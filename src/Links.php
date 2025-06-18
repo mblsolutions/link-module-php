@@ -86,7 +86,7 @@ class Links extends ApiResource
 
     /**
      * Cancel a link
-     * 
+     *
      * @param string $id
      * @param array $headers
      */
