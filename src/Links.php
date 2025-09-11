@@ -99,4 +99,18 @@ class Links extends BaseResource
             'X-Max-Wait' => $this->maxWait
         ], $this->authorizationHeader(), $headers));
     }
+
+    /**
+     * Create a link and allocate a given serial and shortcode to it.
+     *
+     * @param array $params
+     * @param array|null $headers
+     * @return array
+     */
+    public function allocate(array $params, array $headers = []): array
+    {
+        return $this->getApiRequestor()->postRequest("/api/{$this->endpoint}/allocate/", $params, array_merge([
+            'X-Max-Wait' => $this->maxWait
+        ], $this->authorizationHeader(), $headers));
+    }
 }
