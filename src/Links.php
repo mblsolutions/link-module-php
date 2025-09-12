@@ -2,10 +2,9 @@
 
 namespace MBLSolutions\LinkModule;
 
-use MBLSolutions\LinkModule\Api\ApiResource;
-use MBLSolutions\LinkModule\Auth\LinkModule;
+use MBLSolutions\LinkModule\Api\BaseResource;
 
-class Links extends ApiResource
+class Links extends BaseResource
 {
     public $maxWait = 10;
 
@@ -27,12 +26,12 @@ class Links extends ApiResource
     /**
      * Show a single link
      *
-     * @param $reference
-     * @param  $item
+     * @param string $reference
+     * @param string $item
      * @param array|null $headers
      * @return array
      */
-    public function show($reference, $item, array $headers = []): array
+    public function show(string $reference, string $item, array $headers = []): array
     {
         return $this->getApiRequestor()->getRequest("/api/{$this->endpoint}/show/{$reference}/{$item}/", [], array_merge([
             'X-Max-Wait' => $this->maxWait
@@ -42,12 +41,12 @@ class Links extends ApiResource
     /**
      * Show a group link by reference
      *
-     * @param $reference
-     * @param  $item
+     * @param string $reference
+     * @param array $params
      * @param array|null $headers
      * @return array
      */
-    public function showLinkGroup($reference, $params, array $headers = []): array
+    public function showLinkGroup(string $reference, array $params, array $headers = []): array
     {
         return $this->getApiRequestor()->getRequest("/api/{$this->endpoint}/show-link-group/{$reference}/", $params, array_merge([
             'X-Max-Wait' => $this->maxWait
@@ -57,12 +56,12 @@ class Links extends ApiResource
     /**
      * Redeem a single link
      *
-     * @param $reference
-     * @param  $item
+     * @param string $reference
+     * @param string $item
      * @param array|null $headers
      * @return array
      */
-    public function redeem($reference, $item, array $headers = []): array
+    public function redeem(string $reference, string $item, array $headers = []): array
     {
         return $this->getApiRequestor()->patchRequest("/api/{$this->endpoint}/redeem/{$reference}/{$item}/", [], array_merge([
             'X-Max-Wait' => $this->maxWait
@@ -72,12 +71,12 @@ class Links extends ApiResource
     /**
      * Update a group of links
      *
-     * @param $reference
-     * @param  $item
+     * @param string $reference
+     * @param array $params
      * @param array|null $headers
      * @return array
      */
-    public function update($reference, $params, array $headers = []): array
+    public function update(string $reference, array $params, array $headers = []): array
     {
         return $this->getApiRequestor()->patchRequest("/api/{$this->endpoint}/update/{$reference}/", $params, array_merge([
             'X-Max-Wait' => $this->maxWait
@@ -87,21 +86,31 @@ class Links extends ApiResource
     /**
      * Cancel a link
      *
-     * @param string $id
+     * @param string $reference
+     * @param array $items
      * @param array $headers
+     * @return array
      */
-    public function cancel(string $id, array $items, array $headers = []): array
+    public function cancel(string $reference, array $items, array $headers = []): array
     {
-        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $id, [
+        return $this->getApiRequestor()->deleteRequest("/api/{$this->endpoint}/cancel/" . $reference, [
             'items' => $items
         ], array_merge([
             'X-Max-Wait' => $this->maxWait
         ], $this->authorizationHeader(), $headers));
     }
 
-    private function authorizationHeader(): array
+    /**
+     * Create a link and allocate a given serial and shortcode to it.
+     *
+     * @param array $params
+     * @param array|null $headers
+     * @return array
+     */
+    public function allocate(array $params, array $headers = []): array
     {
-        $token = LinkModule::getToken();
-        return ($token) ? ['Authorization' => $token] : [];
+        return $this->getApiRequestor()->postRequest("/api/{$this->endpoint}/allocate/", $params, array_merge([
+            'X-Max-Wait' => $this->maxWait
+        ], $this->authorizationHeader(), $headers));
     }
 }

@@ -1,3 +1,9 @@
+# v0.3.0 
+
++ Add serial endpoints
++ Add shortcode endpoints
++ Add allocate link endpoint
+
 # v0.2.0
 
 + Add show link group
