@@ -2,12 +2,11 @@
 
 namespace MBLSolutions\LinkModule;
 
-use MBLSolutions\LinkModule\Api\ApiResource;
-use MBLSolutions\LinkModule\Auth\LinkModule;
+use MBLSolutions\LinkModule\Api\BaseResource;
 
-class AssetMetadata extends ApiResource
+class AssetMetadata extends BaseResource
 {
-    protected $endpoint = 'meta';
+    protected string $endpoint = 'metadata';
 
     public function updateForAsset(string $assetIdentifier, mixed $meta, array $headers = []): array
     {
@@ -18,11 +17,5 @@ class AssetMetadata extends ApiResource
             ...$this->authorizationHeader(),
             ...$headers
         ]);
-    }
-
-    private function authorizationHeader(): array
-    {
-        $token = LinkModule::getToken();
-        return ($token) ? ['Authorization' => $token] : [];
     }
 }
