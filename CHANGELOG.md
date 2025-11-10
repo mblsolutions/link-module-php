@@ -1,3 +1,7 @@
+# v0.4.0
+
++ Add asset endpoint.
+
 # v0.3.1
 
 + Add asset metadata endpoint.
