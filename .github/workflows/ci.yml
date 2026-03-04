@@ -114,18 +114,3 @@ jobs:
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-progress
 
-  soos:
-    name: SOOS SCA
-    runs-on: ubuntu-24.04
-    needs: [tests]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-
-      - name: Run SOOS SCA
-        uses: soos-io/soos-sca-github-action@v2
-        with:
-          client_id: ${{ secrets.SOOS_CLIENT_ID }}
-          api_key: ${{ secrets.SOOS_API_KEY }}
-          project_name: ${{ github.repository }}
