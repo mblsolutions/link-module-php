@@ -25,10 +25,10 @@ class LinkModule
     /**
      * Override the default baseUri
      *
-     * @param string $baseUri
+     * @param string|null $baseUri
      * @return void
      */
-    public static function setBaseUri(string $baseUri = null): void
+    public static function setBaseUri(?string $baseUri = null): void
     {
         if ($baseUri) {
             self::$baseUri = $baseUri;

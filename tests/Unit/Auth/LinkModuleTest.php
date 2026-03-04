@@ -5,11 +5,12 @@ namespace Tests\Unit\Auth;
 use MBLSolutions\LinkModule\Auth\LinkModule;
 use MBLSolutions\LinkModule\Auth\TokenResolver;
 use MBLSolutions\LinkModule\Exceptions\AuthenticationException;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class LinkModuleTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function throws_exception_if_no_token_set(): void
     {
         $this->expectException(AuthenticationException::class);
@@ -17,7 +18,7 @@ class LinkModuleTest extends TestCase
         LinkModule::getToken();
     }
 
-    /** @test */
+    #[Test]
     public function authenticates_with_oauth_token(): void
     {
         $this->mockExpectedHttpResponse([
@@ -41,7 +42,7 @@ class LinkModuleTest extends TestCase
         $this->assertEquals('Bearer test access token', LinkModule::getToken());
     }
 
-    /** @test */
+    #[Test]
     public function it_refreshes_expired_token(): void
     {
         $this->mockExpectedHttpResponse([

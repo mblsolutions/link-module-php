@@ -6,13 +6,13 @@ use MBLSolutions\LinkModule\Api\BaseResource;
 
 class Links extends BaseResource
 {
-    public $maxWait = 10;
+    public int $maxWait = 10;
 
-    protected $endpoint = 'link';
+    protected string $endpoint = 'link';
 
     /**
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      *
      * @return array
      */
@@ -28,7 +28,7 @@ class Links extends BaseResource
      *
      * @param string $reference
      * @param string $item
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function show(string $reference, string $item, array $headers = []): array
@@ -43,7 +43,7 @@ class Links extends BaseResource
      *
      * @param string $reference
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function showLinkGroup(string $reference, array $params, array $headers = []): array
@@ -58,7 +58,7 @@ class Links extends BaseResource
      *
      * @param string $reference
      * @param string $item
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function redeem(string $reference, string $item, array $headers = []): array
@@ -73,7 +73,7 @@ class Links extends BaseResource
      *
      * @param string $reference
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function update(string $reference, array $params, array $headers = []): array
@@ -104,7 +104,7 @@ class Links extends BaseResource
      * Create a link and allocate a given serial and shortcode to it.
      *
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function allocate(array $params, array $headers = []): array

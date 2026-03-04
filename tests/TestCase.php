@@ -11,6 +11,8 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
+    protected ?Response $mockedResponse = null;
+
     /**
      * Mock Expected HTTP Response
      *
@@ -18,7 +20,7 @@ class TestCase extends BaseTestCase
      * @param int $code
      * @param array|null $headers
      */
-    protected function mockExpectedHttpResponse(array $response, int $code = 200, array $headers = null)
+    protected function mockExpectedHttpResponse(array $response, int $code = 200, ?array $headers = null): void
     {
         $this->mockedResponse = new Response(
             $code,

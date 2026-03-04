@@ -6,15 +6,15 @@ use MBLSolutions\LinkModule\Api\BaseResource;
 
 class Serial extends BaseResource
 {
-    public $maxWait = 10;
+    public int $maxWait = 10;
 
-    protected $endpoint = 'serial';
+    protected string $endpoint = 'serial';
 
     /**
      * Show a single serial
      *
      * @param string $serial
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function show(string $serial, array $headers = []): array
@@ -28,7 +28,7 @@ class Serial extends BaseResource
      * Redeem a single serial
      *
      * @param string $serial
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function redeem(string $serial, array $headers = []): array
@@ -42,7 +42,7 @@ class Serial extends BaseResource
      * Update a group of links by serials
      *
      * @param array $items
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function update(array $items, array $headers = []): array

@@ -4,7 +4,7 @@ namespace MBLSolutions\LinkModule\Api;
 
 class AccessToken
 {
-    private $expiresAt;
+    private int $expiresAt;
 
     public function __construct(
         public string $accessToken,

@@ -22,23 +22,24 @@ class HttpRequestError
      * Handle HTTP Client Request Error
      *
      * @param ClientException $exception
+     * @return never
      */
-    public static function handle(ClientException $exception)
+    public static function handle(ClientException $exception): never
     {
         if ($exception->getCode() === self::HTTP_UNAUTHORIZED) {
-            static::throwException(AuthenticationException::class, $exception);
+            self::throwException(AuthenticationException::class, $exception);
         }
 
         if ($exception->getCode() === self::HTTP_FORBIDDEN) {
-            static::throwException(PermissionDeniedException::class, $exception);
+            self::throwException(PermissionDeniedException::class, $exception);
         }
 
         if ($exception->getCode() === self::HTTP_NOT_FOUND) {
-            static::throwException(NotFoundException::class, $exception);
+            self::throwException(NotFoundException::class, $exception);
         }
 
         if ($exception->getCode() === self::HTTP_UNPROCESSABLE_ENTITY) {
-            static::throwException(ValidationException::class, $exception);
+            self::throwException(ValidationException::class, $exception);
         }
 
         throw $exception;
@@ -48,17 +49,19 @@ class HttpRequestError
      * Throw an Exception
      *
      * @param string $type
-     * @param $exception
-     * @throws mixed
+     * @param ClientException $exception
+     * @return never
      */
-    private static function throwException(string $type, ClientException $exception)
+    private static function throwException(string $type, ClientException $exception): never
     {
         $response = $exception->getResponse();
 
+        // @phpstan-ignore if.alwaysTrue
         if ($response) {
             $message = $response->getBody()->getContents();
         }
 
+        // @phpstan-ignore nullCoalesce.variable
         throw new $type($message ?? 'Received an empty response', $exception->getCode(), $exception->getPrevious());
     }
 }

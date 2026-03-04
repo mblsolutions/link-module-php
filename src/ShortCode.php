@@ -6,15 +6,15 @@ use MBLSolutions\LinkModule\Api\BaseResource;
 
 class ShortCode extends BaseResource
 {
-    public $maxWait = 10;
+    public int $maxWait = 10;
 
-    protected $endpoint = 'shortcode';
+    protected string $endpoint = 'shortcode';
 
     /**
      * Show a single shortcode
      *
      * @param string $shortCode
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function show(string $shortCode, array $headers = []): array
@@ -28,7 +28,7 @@ class ShortCode extends BaseResource
      * Redeem a single shortcode
      *
      * @param string $shortCode
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function redeem(string $shortCode, array $headers = []): array
@@ -42,7 +42,7 @@ class ShortCode extends BaseResource
      * Update a group of links by shortcodes
      *
      * @param array $items
-     * @param array|null $headers
+     * @param array $headers
      * @return array
      */
     public function update(array $items, array $headers = []): array

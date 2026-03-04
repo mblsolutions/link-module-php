@@ -3,11 +3,12 @@
 namespace Tests\Unit\Api;
 
 use MBLSolutions\LinkModule\Api\AccessToken;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AccessTokenTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_true_for_expired_token(): void
     {
         $token = new AccessToken(
@@ -19,7 +20,7 @@ class AccessTokenTest extends TestCase
         $this->assertTrue($token->isExpired());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_false_for_valid_token(): void
     {
         $token = new AccessToken(
