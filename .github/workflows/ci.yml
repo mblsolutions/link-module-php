@@ -121,10 +121,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@master
 
       - name: Run SOOS SCA
-        uses: soos-io/soos-sca-github-action@v4
+        uses: soos-io/soos-sca-github-action@v2
         with:
           client_id: ${{ secrets.SOOS_CLIENT_ID }}
           api_key: ${{ secrets.SOOS_API_KEY }}
