@@ -1,3 +1,13 @@
+# v1.0.0
+
++
+
+# v0.5.0
+
++ PHP 8.4 compatibility — implicit nullable fixes, typed properties, and PHPUnit 11 attribute-based tests
++ Added PHPStan (level 5), Larastan, and Paratest with GitHub Actions CI workflow
++ DDEV updated to PHP 8.4, database container omitted
+
 # v0.4.0
 
 + Add asset endpoint.
