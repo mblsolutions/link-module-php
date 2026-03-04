@@ -8,15 +8,14 @@ use MBLSolutions\LinkModule\Auth\LinkModule;
 
 abstract class ApiResource
 {
-    /** @var ApiRequestor $apiRequestor */
-    private $apiRequestor;
+    private ApiRequestor $apiRequestor;
 
     /**
      * SLD Module API Resource
      *
      * @param ClientInterface|null $client
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(?ClientInterface $client = null)
     {
         if ($client === null) {
             $client = new Client([

@@ -7,11 +7,11 @@ use Throwable;
 
 class ValidationException extends Exception
 {
-    /** @var array */
-    protected $json;
+    /** @var array<string, mixed>|null */
+    protected ?array $json;
 
-    /** @var $errors */
-    protected $errors;
+    /** @var array<string, mixed>|null */
+    protected ?array $errors;
 
     /**
      * Throw a Validation Exception
@@ -20,7 +20,7 @@ class ValidationException extends Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(string $message, int $code, Throwable $previous = null)
+    public function __construct(string $message, int $code, ?Throwable $previous = null)
     {
         $this->json = json_decode($message, true);
 
@@ -54,10 +54,10 @@ class ValidationException extends Exception
     /**
      * Format Error Details
      *
-     * @param array $json
-     * @return array|mixed
+     * @param array<string, mixed> $json
+     * @return array<string, mixed>
      */
-    private function formatErrorDetails(array $json = [])
+    private function formatErrorDetails(array $json = []): array
     {
         return $json['errors'] ?? ['message' => [$json['message']]];
     }

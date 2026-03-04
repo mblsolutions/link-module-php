@@ -13,7 +13,7 @@ class ApiRequestor
     /**
      * Create a new API Requestor Instance
      *
-     * @param ClientInterface|null $transport
+     * @param ClientInterface $transport
      */
     public function __construct(ClientInterface $transport)
     {
@@ -35,7 +35,7 @@ class ApiRequestor
      *
      * @param ClientInterface $guzzle
      */
-    public static function setHttpClient(ClientInterface $guzzle)
+    public static function setHttpClient(ClientInterface $guzzle): void
     {
         self::$transport = $guzzle;
     }
@@ -45,11 +45,10 @@ class ApiRequestor
      *
      * @param string $uri
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
-     * @throws mixed
      */
-    public function getRequest(string $uri, array $params = [], array $headers = null): array
+    public function getRequest(string $uri, array $params = [], array $headers = []): array
     {
         return $this->makeHttpRequest('get', $uri, [
             'headers' => $this->defaultHeaders($headers),
@@ -62,9 +61,8 @@ class ApiRequestor
      *
      * @param string $uri
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
-     * @throws mixed
      */
     public function postRequest(string $uri, array $params = [], array $headers = []): array
     {
@@ -79,11 +77,10 @@ class ApiRequestor
      *
      * @param string $uri
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
-     * @throws mixed
      */
-    public function patchRequest(string $uri, array $params = [], array $headers = null): array
+    public function patchRequest(string $uri, array $params = [], array $headers = []): array
     {
         return $this->makeHttpRequest('patch', $uri, [
             'headers' => $this->defaultHeaders($headers),
@@ -96,11 +93,10 @@ class ApiRequestor
      *
      * @param string $uri
      * @param array $params
-     * @param array|null $headers
+     * @param array $headers
      * @return array
-     * @throws mixed
      */
-    public function deleteRequest(string $uri, array $params = [], array $headers = null): array
+    public function deleteRequest(string $uri, array $params = [], array $headers = []): array
     {
         return $this->makeHttpRequest('delete', $uri, [
             'headers' => $this->defaultHeaders($headers),
@@ -127,10 +123,9 @@ class ApiRequestor
      * @param string $method
      * @param string $uri
      * @param array $options
-     * @return void|array
-     * @throws mixed
+     * @return array
      */
-    private function makeHttpRequest(string $method, string $uri, array $options = [])
+    private function makeHttpRequest(string $method, string $uri, array $options = []): array
     {
         try {
             $response = $this->getHttpClient()->request($method, $uri, $options);
