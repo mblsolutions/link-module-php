@@ -56,10 +56,12 @@ class HttpRequestError
     {
         $response = $exception->getResponse();
 
+        // @phpstan-ignore if.alwaysTrue
         if ($response) {
             $message = $response->getBody()->getContents();
         }
 
+        // @phpstan-ignore nullCoalesce.variable
         throw new $type($message ?? 'Received an empty response', $exception->getCode(), $exception->getPrevious());
     }
 }
